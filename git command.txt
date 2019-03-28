@@ -33,6 +33,7 @@ $ git log
 $ git reset --hard HEAD^
 //回退l两个版本HEAD^^ 一百个 HEAD~100
 //在未关闭的窗口中可以回退到回退之前的本版，方法是输入版本号，版本不会被删除，但是会默认不可见
+//HEAD是指向当前版本的指针
 
 查看命令日志
 $ git reflog
@@ -49,6 +50,50 @@ $ git reset HEAD filename
 
 删除文件
 $ git rm filename
-//从git仓库中删除这个文件
+$ git commit
+//从git仓库中删除这个文件然后提交
+
+误删文件恢复
+ git checkout -- filename
+//从版本库中找到对应的文件并恢复到本地
+
+将git仓库推送到github
+$ git remote add origin git@github.com:Hellsingbin/learngit.git
+//添加并链接到一个远程库 origin是远程库的默认名字
+$ git push -u origin master
+//把本地仓库推送到远程库上，git push 上传命令 -u第一次将本地库上传时使用的模式 origin远程库 选择master分支
+$ git push origin master
+//对本地库进行修改之后再上传
+
+删除链接的远程库
+$ git remote rm origin
+
+克隆远程库
+$ git clone git@github.com:michaelliao/gitskills.git
+
+分支管理
+
+创建新的分支
+$ git checkout -b dev
+//创建一个新的dev分支并切换到dev分支，相当于下面两条命令
+$ git branch dev
+//创建名为dev的新分支
+$ git checkout dev
+//切换到dev分支
+
+查看当前分支
+$ git branch
+//git branch命令会列出所有分支，当前分支前面会标一个*号
+
+合并分支
+$ git merge dev
+git merge命令用于合并指定分支到当前分支
+
+删除分支
+$ git branch -d dev
+//删除dev分支
+
+
+
 
 
