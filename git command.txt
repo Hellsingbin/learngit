@@ -87,12 +87,25 @@ $ git branch
 
 合并分支
 $ git merge dev
-git merge命令用于合并指定分支到当前分支
+//git merge命令用于合并指定分支到当前分支
+$ git merge --no-ff -m "merge with no-ff" dev 
+//--no-ff 表示禁用快速模式，普通模式下的分支合并会有分支合并记录
+//因为保存了分支合并记录，所以相当于一次新的commit 因此有-m 和注释
 
 删除分支
 $ git branch -d dev
 //删除dev分支
 
+解决分支冲突
+在两个分支的文件不同的情况下不允许直接合并，而是提示你需要手动解决冲突
+
+在git界面查看文件内容
+$ cat filename
+
+保存工作现场
+$ git stash
+//类似于快照，将当前的工作区
+git stash list
 
 
 
