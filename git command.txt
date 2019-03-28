@@ -42,7 +42,7 @@ $ git reflog
 撤销修改（从工作区撤销或者从暂存区撤销）
 $ git checkout -- filename
 //撤回至最近一次git commit或git add时的状态
-//git checkout -- file命令中的--很重要，没有--，就变成了“切换到另一个分支”的命令
+//git checkout -- filename命令中的--很重要，没有--，就变成了“切换到另一个分支”的命令
 //git checkout其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。
 
 $ git reset HEAD filename
@@ -64,15 +64,31 @@ $ git push -u origin master
 //把本地仓库推送到远程库上，git push 上传命令 -u第一次将本地库上传时使用的模式 origin远程库 选择master分支
 $ git push origin master
 //对本地库进行修改之后再上传
+//推送master分支
 
 删除链接的远程库
 $ git remote rm origin
 
 克隆远程库
 $ git clone git@github.com:michaelliao/gitskills.git
+//当你从远程仓库克隆时，实际上Git自动把本地的master分支和远程的master分支对应起来了，并且，远程仓库的默认名称是origin。
+
+查看远程库的信息
+$ git remote (-v)
+//带-v表示显示更详细的信息
+
+创建远程origin的dev分支到本地
+$ git checkout -b dev origin/dev
+//由于clone库只有master分支，所以工作分支需要自己创建
+
+取回远程主机某个分支的更新，再与本地的指定分支合并
+$ git pull
+
+指定本地dev分支与远程origin/dev分支的链接
+$ git branch --set-upstream-to=origin/dev dev
+//将本地分支与远程分支链接在一起，以便于获取更新
 
 分支管理
-
 创建新的分支
 $ git checkout -b dev
 //创建一个新的dev分支并切换到dev分支，相当于下面两条命令
@@ -88,24 +104,69 @@ $ git branch
 合并分支
 $ git merge dev
 //git merge命令用于合并指定分支到当前分支
+
 $ git merge --no-ff -m "merge with no-ff" dev 
 //--no-ff 表示禁用快速模式，普通模式下的分支合并会有分支合并记录
 //因为保存了分支合并记录，所以相当于一次新的commit 因此有-m 和注释
 
 删除分支
 $ git branch -d dev
-//删除dev分支
+//删除dev分支（dev已于master分支合并，所以删除这个分支不会丢失信息）
+
+删除未合并的分支
+$ git branch -D dev
+//删除未与主分支合并的dev分支（意味着该分支上的信息未保存就被删除）
 
 解决分支冲突
 在两个分支的文件不同的情况下不允许直接合并，而是提示你需要手动解决冲突
 
+保存工作现场，查看并恢复
+$ git stash
+//类似于快照，将当前的工作区保存起来并清空工作区
+$ git stash list
+//查看保存的工作区列表
+git stash pop
+//恢复的同时把stash内容也删了
+git stash apply xxxx
+//用git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；//可以多次stash，恢复的时候，先用git stash list查看，然后恢复指定的stash，用命令：$ git stash apply stash@{0}
+
+Rebase
+$ git rebase
+//该命令用于调整本地分支得顺序以消除日志分叉 
+
+标签管理
+Git的标签虽然是版本库的快照，但其实它就是指向某个commit的指针（与分支有关，在tag之前请先切换分支）
+
+创建标签
+$ git tag <name>
+$ git tag -a v0.1 -m "version 0.1 released" 1094adb
+//-a指定标签名，-m指定说明文字
+//字母排序
+
+查看标签列表
+$ git tag 
+
+对历史commit创建标签
+$ git tag v0.9 f52c633
+//f52c633 commit-id
+
+查看具体标签信息
+$ git show <tagname>
+
+删除标签
+$ git tag -d <name>
+//删除本地标签
+$ git push origin :refs/tags/<tagname>
+//删除远程标签前必须先删除本地标签
+
+将标签上传到远程库
+$ git push origin <tagname>
+$ git push origin --tags
+//便签不会自动上传
+//--tags 上传全部标签
+
 在git界面查看文件内容
 $ cat filename
-
-保存工作现场
-$ git stash
-//类似于快照，将当前的工作区
-git stash list
 
 
 
