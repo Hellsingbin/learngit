@@ -13,7 +13,7 @@ pwd命令用于显示当前目录
 将这个目录变成Git可以管理的仓库：
 $ git init
 
-将文件放入git仓库一共两步：添加+确认
+将（新/被修改）的文件放入git仓库一共两步：添加+确认
 $ git add filename
 //使用命令git add <file>，注意，可反复多次使用，添加多个文件；
 $ git commit -m "message" //-m后面的内容是伴随本次提交所提供的改动信息
@@ -24,3 +24,16 @@ $ git status
 
 查看具体文件的版本信息
 $ git diff filename
+//如果git status告诉你有文件被修改过，用git diff可以查看修改内容
+
+查看日志
+$ git log
+
+回退项目版本
+$ git reset --hard HEAD^
+//回退l两个版本HEAD^^ 一百个 HEAD~100
+//在未关闭的窗口中可以回退到回退之前的本版，方法是输入版本号，版本不会被删除，但是会默认不可见
+
+查看命令日志
+$ git reflog
+//命令日志包含了输入过的命令，和每条命令对应的执行信息，reflog可以查看被覆盖的版本的版本号
