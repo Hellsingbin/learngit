@@ -37,3 +37,18 @@ $ git reset --hard HEAD^
 查看命令日志
 $ git reflog
 //命令日志包含了输入过的命令，和每条命令对应的执行信息，reflog可以查看被覆盖的版本的版本号
+
+撤销修改（从工作区撤销或者从暂存区撤销）
+$ git checkout -- filename
+//撤回至最近一次git commit或git add时的状态
+//git checkout -- file命令中的--很重要，没有--，就变成了“切换到另一个分支”的命令
+//git checkout其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。
+
+$ git reset HEAD filename
+命令git reset HEAD <file>可以把暂存区的修改撤销掉（unstage），重新放回工作区
+
+删除文件
+$ git rm filename
+//从git仓库中删除这个文件
+
+
