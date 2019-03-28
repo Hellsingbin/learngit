@@ -1,0 +1,26 @@
+设置用户名和邮箱
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+//用户名和邮箱既可以全局设置（一台电脑上所有的仓库都使用该信息），也可以为每个仓库单独设置
+
+创建新的git目录(在Windows中是创建一个新的文件夹)
+$ mkdir learngit
+$ cd learngit
+$ pwd
+/Users/michael/learngit
+pwd命令用于显示当前目录
+
+将这个目录变成Git可以管理的仓库：
+$ git init
+
+将文件放入git仓库一共两步：添加+确认
+$ git add filename
+//使用命令git add <file>，注意，可反复多次使用，添加多个文件；
+$ git commit -m "message" //-m后面的内容是伴随本次提交所提供的改动信息
+//commit可以一次提交很多文件
+
+查看仓库状态
+$ git status
+
+查看具体文件的版本信息
+$ git diff filename
